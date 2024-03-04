@@ -1,0 +1,20 @@
+{
+  "name": "slot-booking",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html -p 7000"
+  },
+  "author": "siva rama krishnan",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/msal-browser": "^3.10.0",
+    "react": "^18.2.0",
+    "react-router-dom": "^6.22.2"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  }
+}
