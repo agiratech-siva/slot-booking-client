@@ -3,7 +3,7 @@ export const msalConfig = {
     auth: {
         clientId: "c2019ec1-91b6-49ba-b84a-8dc71cbce5f9",
         authority: 'https://login.microsoftonline.com/2a4a5a22-099a-4115-86f7-35b1367f0ea9',
-        redirectUri: "https://slot-booking-server.onrender.com/"
+        redirectUri: "https://slot-booking-client.onrender.com/"
     },
     cache: {
         cacheLocation: "localStorage",
@@ -19,7 +19,7 @@ const login = async () => {
     const response = await msalInstance.loginPopup({
         scopes: ["user.read"],
         prompt: "select_account",
-        redirectUri: "https://slot-booking-server.onrender.com/",
+        redirectUri: "https://slot-booking-client.onrender.com/",
         popup: true
     });
 
