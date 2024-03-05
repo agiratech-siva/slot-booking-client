@@ -6,7 +6,7 @@ const id = localStorage.getItem("employee-id");
 const Userinfo = () => {
     const [userdetail, setuserdetail] = useState("");
     useEffect(async () => {
-        const response = await fetch(`https://slot-booking-server.onrender.com/getUserdetails/${id}`);
+        const response = await fetch(`http://localhost:8000/getUserdetails/${id}`);
         const finalresponse = await response.json();
         setuserdetail(finalresponse);
     },[])
