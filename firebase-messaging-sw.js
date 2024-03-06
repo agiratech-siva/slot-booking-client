@@ -1,53 +1,51 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, onBackgroundMessage} from "firebase/messaging/sw";
-import { config } from "dotenv";
-config()
+import firebaseconfig from "./utils/firebase-config";
 
-const firebaseApp = initializeApp({
-    apiKey: "AIzaSyCc7r8zBKUy48ZuXNvXZiWe6SM97BL4Pd0",
-    authDomain: "slot-booking-e099d.firebaseapp.com",
-    projectId: "slot-booking-e099d",
-    storageBucket: "slot-booking-e099d.appspot.com",
-    messagingSenderId: "70001859991",
-    appId: "1:70001859991:web:5afb5aa9fedb139b7a78d2",
-    measurementId: "G-Z1X72NWJSR"
-  });
+const firebaseApp = initializeApp(firebaseconfig);
 
 const messaging = getMessaging(firebaseApp);
 
-function archiveEmail(){
-  console.log("i pressed action buttons and it displayed the corresponding messages");
+async function archiveEmail(id, status){
+  console.log("notifcation id ", id);
+  const response = await fetch(`https://slot-booking-server.onrender.com/teamacceptnotification/${id}/${status}`);
+  console.log("finished fetch");
+  console.log(response);
 }
 
 onBackgroundMessage(messaging, (payload) => {
-    
+  self.addEventListener(
+    "notificationclick",
+    (event) => {
+      event.notification.close();
+      if (event.action === "accept") {
+        archiveEmail(payload?.data?.notificationRequestId,"true");
+      } else {
+        archiveEmail(payload?.data?.notificationRequestId, "false")
+        clients.openWindow("/");
+      }
+    },
+    false,
+  );
+
+
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    const notificationTitle = 'Background Message Title';
+    const notificationTitle = 'team member application invite';
     const notificationOptions = {
-      body: 'Background Message body.',
+      body: payload.notification.body,
       icon: '/firebase-logo.png',
       actions: [
         {
-          action: "archive",
-          title: "Archive",
+          action: "accept",
+          title: "accept the request",
         }
       ]
     };
+
+    
   
     self.registration.showNotification(notificationTitle,
       notificationOptions);
 
-    self.addEventListener(
-      "notificationclick",
-      (event) => {
-        event.notification.close();
-        if (event.action === "archive") {
-          archiveEmail();
-        } else {
-          clients.openWindow("/inbox");
-        }
-      },
-      false,
-    );
-
+    
 });
