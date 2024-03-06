@@ -5,10 +5,24 @@ const id = localStorage.getItem("employee-id");
 
 const Userinfo = () => {
     const [userdetail, setuserdetail] = useState("");
-    useEffect(async () => {
-        const response = await fetch(`https://slot-booking-server.onrender.com/getUserdetails/${id}`);
-        const finalresponse = await response.json();
-        setuserdetail(finalresponse);
+    useEffect( () => {
+        const getUserdetails = async () => {
+            try{
+                const response = await fetch(`https://slot-booking-server.onrender.com/getUserdetails/${id}`);
+                const finalresponse = await response.json();
+                if(response.ok){
+                    setuserdetail(finalresponse);
+                }else{
+                    throw new error("some error occurred");
+                }
+            }catch (err) {
+                
+            }
+            
+        }
+
+        getUserdetails();
+        
     },[])
 
     if(userdetail === ""){

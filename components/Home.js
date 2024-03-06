@@ -1,7 +1,6 @@
-
-import login from "../msal";
+import login from "../microsoft login/msal";
 import Header from "./Header";
-import Userinfo from "./Userinfo";
+import { Link, Outlet } from "react-router-dom";
 
 const Home = ({ data }) => {
     
@@ -11,7 +10,8 @@ const Home = ({ data }) => {
         (
             <div>
                 <Header/>
-                <Userinfo/>
+                <Outlet/>
+                <Link to="/create-team">create team</Link>
             </div>
         )
     );
