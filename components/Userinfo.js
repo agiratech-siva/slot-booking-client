@@ -8,7 +8,7 @@ const Userinfo = () => {
     useEffect( () => {
         const getUserdetails = async () => {
             try{
-                const response = await fetch(`https://slot-booking-server.onrender.com/getUserdetails/${id}`);
+                const response = await fetch(`http://localhost:8000/getUserdetails/${id}`);
                 const finalresponse = await response.json();
                 if(response.ok){
                     setuserdetail(finalresponse);

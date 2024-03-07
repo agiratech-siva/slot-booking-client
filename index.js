@@ -5,6 +5,7 @@ import Listusers from "./components/Listusers";
 import requestNotifcationPermission from "./notifications/firebase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Userinfo from "./components/Userinfo";
+import Teamrequests from "./components/Teamrequests";
 
 const root = ReactDOM.createRoot(document.getElementById("container"));
 
@@ -35,6 +36,10 @@ const approutes = createBrowserRouter([
             {
                 path: "/create-team",
                 element : <Listusers/>
+            },
+            {
+                path: "/yourteamrequests",
+                element: <Teamrequests/>
             }
         ]
         

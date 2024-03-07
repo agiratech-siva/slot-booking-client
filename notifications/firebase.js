@@ -8,8 +8,6 @@ const firebaseApp = initializeApp(firebaseconfig);
 
 const messaging = getMessaging(firebaseApp);
 
-
-
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
 });
@@ -27,7 +25,7 @@ const requestNotifcationPermission = () => {
             localStorage.setItem("permission for slot booking", "true");
             getToken(messaging, { vapidKey: process.env.VAPID_KEY }).then((currentToken) => {
               (async function(){
-                const response = await fetch(`https://slot-booking-server.onrender.com/addRegistrationToken/${id}`, {
+                const response = await fetch(`http://localhost:8000/addRegistrationToken/${id}`, {
                   method: "POST",
                   headers : {
                     "Content-Type": "application/json"

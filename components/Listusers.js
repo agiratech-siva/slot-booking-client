@@ -9,7 +9,7 @@ const Listusers = () => {
 
         const fetchUserDetails = async () => {
             try {
-                const response = await fetch(`https://slot-booking-server.onrender.com/listusersforteam/${id}`);
+                const response = await fetch(`http://localhost:8000/listusersforteam/${id}`);
                 const data = await response.json();
 
                 if (response.ok) {
