@@ -1,21 +1,22 @@
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
 const senderId = localStorage.getItem("employee-id");
 
 const Teamuser = ({ data }) => {
+    const [teamName, setTeamName] = useState("");
     
-    
-    const sendNotifications = async (id) => {
+    const sendNotifications = async (e,id) => {
 
+        e.preventDefault();
         try {
             
             const response = await fetch(
-                `http://localhost:8000/sendJoinTeamNotification/${id}/${senderId}`
+                `http://localhost:8000/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
             );
             const result = await response.json();
             console.log(result);
-
+            setTeamName("");
             
         } catch (err) {
             console.log(err);
@@ -25,10 +26,14 @@ const Teamuser = ({ data }) => {
     <div className="teamuser">
       <h1>{data.fullname}</h1>
       <h2>{data.employeeId}</h2>
-      
-        <button onClick={() => sendNotifications(data.employeeId)}>
-          <a href="http://www.google.com" target="_blank">give request to be a part of team member</a>
-        </button>
+        <form onSubmit={(e) => sendNotifications(e,data.employeeId)}>
+          <label htmlFor="teamname">teamname: </label>
+          <input id="teamname" type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} required></input>
+          <button type="submit">
+            give request to be a part of team member
+          </button>
+        </form>
+        
       
       <h2>{data.mail}</h2>
     </div>

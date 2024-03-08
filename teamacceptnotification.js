@@ -1,6 +1,6 @@
-async function archiveEmail(employeeId,id, status){
+async function archiveEmail(employeeId,id, status,teamname){
     
-    const response = await fetch(`http://localhost:8000/teamacceptnotification/${employeeId}/${id}/${status}`);
+    const response = await fetch(`http://localhost:8000/teamacceptnotification/${employeeId}/${id}/${status}/${teamname}`);
     console.log("finished fetch");
     console.log(response);
 }

@@ -12,9 +12,11 @@ onBackgroundMessage(messaging, (payload) => {
     async (event) => {
       event.notification.close();
       if (event.action === "accept") {
-        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId,"true");
+        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId,"true", payload?.data?.teamName);
       } else if(event.action === "decline") {
-        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId, "false")
+        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId, "false",payload?.data?.teamName);
+      }else if(payload.data.type == "information"){
+        clients.openWindow("/");
       }else{
         clients.openWindow("/yourteamrequests");
       }
@@ -25,22 +27,29 @@ onBackgroundMessage(messaging, (payload) => {
 
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     const notificationTitle = payload.data.title;
-    const notificationOptions = {
-      body: payload.data.body,
-      icon: '/firebase-logo.png',
-      actions: [
-        {
-          action: "accept",
-          title: "accept the request",
-        },
-        {
-          action:"decline",
-          title: "decline the request",
-        }
-      ]
-    };
+    let notificationOptions;
+    if(payload.data.type == "information"){
+      notificationOptions = {
+        body: payload.data.body,
+      }
 
-  
+    }else{
+      notificationOptions = {
+        body: payload.data.body,
+        icon: '/firebase-logo.png',
+        actions: [
+          {
+            action: "accept",
+            title: "accept the request",
+          },
+          {
+            action:"decline",
+            title: "decline the request",
+          }
+        ]
+      };
+    }
+    
     self.registration.showNotification(notificationTitle,
       notificationOptions);
 });
