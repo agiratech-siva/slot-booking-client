@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-
+import { config } from "dotenv";
 const id = localStorage.getItem("employee-id");
-
+config();
 
 const Userinfo = () => {
     const [userdetail, setuserdetail] = useState("");
     useEffect( () => {
         const getUserdetails = async () => {
             try{
-                const response = await fetch(`http://localhost:8000/getUserdetails/${id}`);
+                const response = await fetch(`${process.env.ENV_URL}/getUserdetails/${id}`);
                 const finalresponse = await response.json();
                 if(response.ok){
                     setuserdetail(finalresponse);

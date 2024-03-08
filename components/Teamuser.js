@@ -1,5 +1,6 @@
-
+import { config } from "dotenv";
 import { useState } from "react";
+config();
 
 const senderId = localStorage.getItem("employee-id");
 
@@ -12,7 +13,7 @@ const Teamuser = ({ data }) => {
         try {
             
             const response = await fetch(
-                `http://localhost:8000/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
+                `${process.env.ENV_URL}/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
             );
             const result = await response.json();
             console.log(result);

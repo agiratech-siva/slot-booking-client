@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import { config } from "dotenv";
+config();
 const id = localStorage.getItem("employee-id");
 import status from "../status";
 
@@ -10,7 +11,7 @@ const Teamrequests = () => {
     useEffect(() => {
         console.log("useEffect called");
         const getteamrequests = async () => {
-            const response = await fetch(`http://localhost:8000/getteamrequests/${id}`);
+            const response = await fetch(`${process.env.ENV_URL}/getteamrequests/${id}`);
             const data = await response.json();
             
             if(data.data.length == 0){
