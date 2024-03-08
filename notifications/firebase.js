@@ -3,12 +3,10 @@ import { initializeApp } from "firebase/app";
 import firebaseconfig from "../utils/firebase-config";
 import { getMessaging, getToken, onMessage} from "firebase/messaging";
 config();
-console.log(firebaseconfig);
+
 const firebaseApp = initializeApp(firebaseconfig);
 
 const messaging = getMessaging(firebaseApp);
-
-
 
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);

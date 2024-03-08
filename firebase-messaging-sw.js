@@ -1,28 +1,24 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, onBackgroundMessage} from "firebase/messaging/sw";
 import firebaseconfig from "./utils/firebase-config";
-
+import archiveEmail from "./teamacceptnotification";
 const firebaseApp = initializeApp(firebaseconfig);
-
 const messaging = getMessaging(firebaseApp);
 
-async function archiveEmail(id, status){
-  console.log("notifcation id ", id);
-  const response = await fetch(`https://slot-booking-server.onrender.com/teamacceptnotification/${id}/${status}`);
-  console.log("finished fetch");
-  console.log(response);
-}
 
 onBackgroundMessage(messaging, (payload) => {
   self.addEventListener(
     "notificationclick",
-    (event) => {
+    async (event) => {
       event.notification.close();
       if (event.action === "accept") {
-        archiveEmail(payload?.data?.notificationRequestId,"true");
-      } else {
-        archiveEmail(payload?.data?.notificationRequestId, "false")
+        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId,"true", payload?.data?.teamName);
+      } else if(event.action === "decline") {
+        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId, "false",payload?.data?.teamName);
+      }else if(payload.data.type == "information"){
         clients.openWindow("/");
+      }else{
+        clients.openWindow("/yourteamrequests");
       }
     },
     false,
@@ -30,22 +26,30 @@ onBackgroundMessage(messaging, (payload) => {
 
 
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    const notificationTitle = 'team member application invite';
-    const notificationOptions = {
-      body: payload.notification.body,
-      icon: '/firebase-logo.png',
-      actions: [
-        {
-          action: "accept",
-          title: "accept the request",
-        }
-      ]
-    };
+    const notificationTitle = payload.data.title;
+    let notificationOptions;
+    if(payload.data.type == "information"){
+      notificationOptions = {
+        body: payload.data.body,
+      }
 
+    }else{
+      notificationOptions = {
+        body: payload.data.body,
+        icon: '/firebase-logo.png',
+        actions: [
+          {
+            action: "accept",
+            title: "accept the request",
+          },
+          {
+            action:"decline",
+            title: "decline the request",
+          }
+        ]
+      };
+    }
     
-  
     self.registration.showNotification(notificationTitle,
       notificationOptions);
-
-    
 });
