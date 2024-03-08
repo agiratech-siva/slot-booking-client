@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Teamuser from "./Teamuser";
+import { config } from "dotenv";
+config();
 
 const Listusers = () => {
     const id = localStorage.getItem("employee-id");
@@ -9,7 +11,9 @@ const Listusers = () => {
 
         const fetchUserDetails = async () => {
             try {
-                const response = await fetch(`https://slot-booking-server.onrender.com/listusersforteam/${id}`);
+
+                const response = await fetch(`${process.env.ENV_URL}/listusersforteam/${id}`);
+
                 const data = await response.json();
 
                 if (response.ok) {

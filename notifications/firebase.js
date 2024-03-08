@@ -1,8 +1,9 @@
 import { config } from "dotenv";
+config();
 import { initializeApp } from "firebase/app";
 import firebaseconfig from "../utils/firebase-config";
 import { getMessaging, getToken, onMessage} from "firebase/messaging";
-config();
+
 
 const firebaseApp = initializeApp(firebaseconfig);
 
@@ -25,7 +26,9 @@ const requestNotifcationPermission = () => {
             localStorage.setItem("permission for slot booking", "true");
             getToken(messaging, { vapidKey: process.env.VAPID_KEY }).then((currentToken) => {
               (async function(){
-                const response = await fetch(`https://slot-booking-server.onrender.com/addRegistrationToken/${id}`, {
+
+                const response = await fetch(`${process.env.ENV_URL}/addRegistrationToken/${id}`, {
+
                   method: "POST",
                   headers : {
                     "Content-Type": "application/json"
