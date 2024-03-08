@@ -12,7 +12,7 @@ const Teamuser = ({ data }) => {
         try {
             
             const response = await fetch(
-                `https://slot-booking-server.onrender.com/${id}/${senderId}/${teamName}`
+                `https://slot-booking-server.onrender.com/teamacceptnotification/${id}/${senderId}/${teamName}`
             );
             const result = await response.json();
             console.log(result);
