@@ -6,6 +6,7 @@ import requestNotifcationPermission from "./notifications/firebase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Userinfo from "./components/Userinfo";
 import Teamrequests from "./components/Teamrequests";
+import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("container"));
 
@@ -20,8 +21,7 @@ navigator.serviceWorker.register(
 if(localStorage.getItem("employee-id")){
     isLoggedIn = true;
     requestNotifcationPermission();
-}
-
+} // In else block implement logout functionality here , because user can delete your employee-id in localstorage.
 
 
 const approutes = createBrowserRouter([
@@ -46,7 +46,15 @@ const approutes = createBrowserRouter([
     },
     
 ]);
-root.render(<RouterProvider router = {approutes} />);
+
+
+root.render(
+    <>
+        <ToastContainer/>
+        <RouterProvider router = {approutes} />
+    </>
+    
+);
 
 
 

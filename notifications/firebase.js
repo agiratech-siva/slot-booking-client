@@ -3,28 +3,33 @@ config();
 import { initializeApp } from "firebase/app";
 import firebaseconfig from "../utils/firebase-config";
 import { getMessaging, getToken, onMessage} from "firebase/messaging";
-
+import toastdisplay from "./toast";
+import 'react-toastify/dist/ReactToastify.css';
 
 const firebaseApp = initializeApp(firebaseconfig);
 
 const messaging = getMessaging(firebaseApp);
 
 onMessage(messaging, (payload) => {
+  toastdisplay(payload);
   console.log('Message received. ', payload);
 });
 
 const id = localStorage.getItem("employee-id");
 const requestNotifcationPermission = () => {
-    if(localStorage.getItem("permission for slot booking") == "true"){
+    if(localStorage.getItem("permission for slot booking") == "true" && localStorage.getItem("registration-token") ){
         return ;
     }
 
-    console.log("notification permission called");
+    console.log("notification permission called")
     Notification.requestPermission().then((permission) => {
         if(permission === "granted"){
             console.log("permission granted");
             localStorage.setItem("permission for slot booking", "true");
             getToken(messaging, { vapidKey: process.env.VAPID_KEY }).then((currentToken) => {
+              if(currentToken){
+                localStorage.setItem("registration-token", currentToken);
+              }
               (async function(){
 
                 const response = await fetch(`${process.env.ENV_URL}/addRegistrationToken/${id}`, {
@@ -46,7 +51,7 @@ const requestNotifcationPermission = () => {
         }else{
             console.log("denied");
             localStorage.setItem("permission for slot booking", "false");
-            console.log('No registration token available. Request permission to generate one.');
+            console.log("give notification permission for notifications to receive for you ");
         }
     })
 }
