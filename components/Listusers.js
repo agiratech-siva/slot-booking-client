@@ -11,7 +11,9 @@ const Listusers = () => {
 
         const fetchUserDetails = async () => {
             try {
+
                 const response = await fetch(`${process.env.ENV_URL}/listusersforteam/${id}`);
+
                 const data = await response.json();
 
                 if (response.ok) {

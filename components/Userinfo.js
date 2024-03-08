@@ -8,7 +8,9 @@ const Userinfo = () => {
     useEffect( () => {
         const getUserdetails = async () => {
             try{
+
                 const response = await fetch(`${process.env.ENV_URL}/getUserdetails/${id}`);
+
                 const finalresponse = await response.json();
                 if(response.ok){
                     setuserdetail(finalresponse);

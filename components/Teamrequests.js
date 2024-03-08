@@ -11,7 +11,9 @@ const Teamrequests = () => {
     useEffect(() => {
         console.log("useEffect called");
         const getteamrequests = async () => {
+
             const response = await fetch(`${process.env.ENV_URL}/getteamrequests/${id}`);
+
             const data = await response.json();
             
             if(data.data.length == 0){

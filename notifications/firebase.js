@@ -26,7 +26,9 @@ const requestNotifcationPermission = () => {
             localStorage.setItem("permission for slot booking", "true");
             getToken(messaging, { vapidKey: process.env.VAPID_KEY }).then((currentToken) => {
               (async function(){
+
                 const response = await fetch(`${process.env.ENV_URL}/addRegistrationToken/${id}`, {
+
                   method: "POST",
                   headers : {
                     "Content-Type": "application/json"

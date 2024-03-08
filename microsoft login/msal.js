@@ -7,7 +7,9 @@ const msalConfig = {
     clientId: "c2019ec1-91b6-49ba-b84a-8dc71cbce5f9",
     authority:
       "https://login.microsoftonline.com/2a4a5a22-099a-4115-86f7-35b1367f0ea9",
+
     redirectUri: `${process.env.REDIRECT_URL}`,
+
   },
   cache: {
     cacheLocation: "localStorage",
@@ -23,7 +25,9 @@ const login = async () => {
   const response = await msalInstance.loginPopup({
     scopes: ["user.read"],
     prompt: "select_account",
+
     redirectUri: `${process.env.REDIRECT_URL}`,
+
     popup: true,
   });
 
@@ -60,7 +64,9 @@ const login = async () => {
         .then((res) => {
           console.log(res);
           localStorage.setItem("employee-id", res.id);
+
           fetch(`${process.env.ENV_URL}/users`, {
+
             method: "post",
             headers: {
               "Content-Type": "application/json",

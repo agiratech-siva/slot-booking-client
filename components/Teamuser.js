@@ -13,12 +13,14 @@ const Teamuser = ({ data }) => {
         try {
             
             const response = await fetch(
+
                 `${process.env.ENV_URL}/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
+
             );
             const result = await response.json();
             console.log(result);
             setTeamName("");
-            
+
         } catch (err) {
             console.log(err);
         }
