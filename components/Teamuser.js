@@ -12,12 +12,12 @@ const Teamuser = ({ data }) => {
         try {
             
             const response = await fetch(
-                `http://localhost:8000/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
+                `https://slot-booking-server.onrender.com/${id}/${senderId}/${teamName}`
             );
             const result = await response.json();
             console.log(result);
             setTeamName("");
-            
+
         } catch (err) {
             console.log(err);
         }

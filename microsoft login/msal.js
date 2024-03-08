@@ -58,7 +58,7 @@ const login = async () => {
         .then((res) => {
           console.log(res);
           localStorage.setItem("employee-id", res.id);
-          fetch("http://localhost:8000/users", {
+          fetch("https://slot-booking-server.onrender.com/users", {
             method: "post",
             headers: {
               "Content-Type": "application/json",

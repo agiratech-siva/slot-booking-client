@@ -10,7 +10,7 @@ const Teamrequests = () => {
     useEffect(() => {
         console.log("useEffect called");
         const getteamrequests = async () => {
-            const response = await fetch(`http://localhost:8000/getteamrequests/${id}`);
+            const response = await fetch(`https://slot-booking-server.onrender.com/getteamrequests/${id}`);
             const data = await response.json();
             
             if(data.data.length == 0){
