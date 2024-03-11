@@ -1,10 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, onBackgroundMessage} from "firebase/messaging/sw";
 import firebaseconfig from "./utils/firebase-config";
-import archiveEmail from "./teamacceptnotification";
+import sendTeamAcceptRejectNotification from "./teamacceptnotification";
 const firebaseApp = initializeApp(firebaseconfig);
 const messaging = getMessaging(firebaseApp);
-
 
 onBackgroundMessage(messaging, (payload) => {
   self.addEventListener(
@@ -12,9 +11,9 @@ onBackgroundMessage(messaging, (payload) => {
     async (event) => {
       event.notification.close();
       if (event.action === "accept") {
-        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId,"true", payload?.data?.teamName);
+        await sendTeamAcceptRejectNotification(payload?.data?.receiverId,payload?.data?.notificationRequestId,"true", payload?.data?.teamName);
       } else if(event.action === "decline") {
-        await archiveEmail(payload?.data?.receiverId,payload?.data?.notificationRequestId, "false",payload?.data?.teamName);
+        await sendTeamAcceptRejectNotification(payload?.data?.receiverId,payload?.data?.notificationRequestId, "false",payload?.data?.teamName);
       }else if(payload.data.type == "information"){
         clients.openWindow("/");
       }else{
@@ -23,7 +22,6 @@ onBackgroundMessage(messaging, (payload) => {
     },
     false,
   );
-
 
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     const notificationTitle = payload.data.title;
