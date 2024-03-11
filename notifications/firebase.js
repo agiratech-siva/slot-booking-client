@@ -31,18 +31,22 @@ const requestNotifcationPermission = () => {
                 localStorage.setItem("registration-token", currentToken);
               }
               (async function(){
+                try{
+                  const response = await fetch(`${process.env.ENV_URL}/users/addRegistrationToken/${id}`, {
 
-                const response = await fetch(`${process.env.ENV_URL}/addRegistrationToken/${id}`, {
-
-                  method: "POST",
-                  headers : {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    token: currentToken,
+                    method: "POST",
+                    headers : {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      token: currentToken,
+                    })
                   })
-                })
-                console.log(currentToken);
+                  console.log(currentToken);
+                }catch(err){
+                  console.log(err);
+                }
+                
               })()
             }).catch((err) => {
               console.log('An error occurred while retrieving token. ', err);

@@ -11,7 +11,6 @@ const Home = ({ data }) => {
             <div>
                 <Header/>
                 <Outlet/>
-                <Link to="/create-team">create team</Link>
             </div>
         )
     );

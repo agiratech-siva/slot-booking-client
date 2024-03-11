@@ -14,7 +14,7 @@ const Teamuser = ({ data }) => {
             
             const response = await fetch(
 
-                `${process.env.ENV_URL}/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
+                `${process.env.ENV_URL}/team/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
 
             );
             const result = await response.json();
