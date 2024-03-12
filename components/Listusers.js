@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Teamuser from "./Teamuser";
 import { config } from "dotenv";
 import { Link } from "react-router-dom";
-
 config();
 
 const Listusers = () => {
@@ -18,7 +17,7 @@ const Listusers = () => {
 
                 const data = await response.json();
 
-                if (response.ok) {
+                if (response.ok && data.empty == false) {
                     setListUsers(data.userslist);
                 } else {
                     setListUsers([]);
@@ -37,7 +36,14 @@ const Listusers = () => {
     if(listusers.length == 0 && empty == false){
         return <h1>loading.....</h1>
     }else if(listusers.length == 0 && empty == true){
-        return <p>no users are left to make a team with you..</p>
+
+        return (
+            <>
+                <Link to="/">Home page</Link>
+                <p>no users are left to make a team with you..</p>
+            </>
+        )
+        
     }
     else{
         return (

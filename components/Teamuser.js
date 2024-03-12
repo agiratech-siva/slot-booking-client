@@ -14,7 +14,16 @@ const Teamuser = ({ data }) => {
             
             const response = await fetch(
 
-                `${process.env.ENV_URL}/team/sendJoinTeamNotification/${id}/${senderId}/${teamName}`
+                `${process.env.ENV_URL}/teams/sendJoinTeamNotification/${id}/${senderId}/${teamName}`,{
+                  method: "post",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+
+                  body: JSON.stringify({
+                    
+                  }),
+                }
 
             );
             const result = await response.json();
@@ -28,7 +37,7 @@ const Teamuser = ({ data }) => {
   return (
     <div className="teamuser">
       <h1>{data.fullname}</h1>
-      <h2>{data.employeeId}</h2>
+      
         <form onSubmit={(e) => sendNotifications(e,data.employeeId)}>
           <label htmlFor="teamname">teamname: </label>
           <input id="teamname" type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} required></input>
