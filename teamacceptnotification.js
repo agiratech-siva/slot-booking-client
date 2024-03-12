@@ -3,7 +3,9 @@ config();
 
 async function sendTeamAcceptRejectNotification(employeeId,id, status,teamname){
     try{
-        const response = await fetch(`${process.env.ENV_URL}/team/teamacceptnotification/${employeeId}/${id}/${status}/${teamname}`);
+        const response = await fetch(`${process.env.ENV_URL}/teams/teamacceptnotification/${employeeId}/${id}/${status}/${teamname}`,{
+            method: "post"
+        });
         console.log("finished fetch");
         console.log(response);
     }catch(err){

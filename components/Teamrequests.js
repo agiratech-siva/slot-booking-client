@@ -14,7 +14,7 @@ const Teamrequests = () => {
 
         const getteamrequests = async () => {
 
-            const response = await fetch(`${process.env.ENV_URL}/team/getteamrequests/${id}`);
+            const response = await fetch(`${process.env.ENV_URL}/teams/getteamrequests/${id}`);
 
             const data = await response.json();
             console.log(data);
@@ -32,10 +32,14 @@ const Teamrequests = () => {
 
     if(requests.length == 0){
         return (
-            <p>no entries found</p>
+            <>
+                <Link to="/">Home page</Link>
+                <p>no entries found</p>
+            </>
+            
         )
     }else{
-        console.log("requests",requests);
+        
         return (
             <>
                 <Link to="/">Home page</Link>

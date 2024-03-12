@@ -65,7 +65,7 @@ const login = async () => {
           console.log(res);
           localStorage.setItem("employee-id", res.id);
 
-          fetch(`${process.env.ENV_URL}/users`, {
+          fetch(`${process.env.ENV_URL}/users/addusertothedb`, {
 
             method: "post",
             headers: {
