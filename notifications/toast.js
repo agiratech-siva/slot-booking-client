@@ -10,12 +10,12 @@ const TeamAcceptRejectToast = ({name}) => {
             <div> teamName: {name?.data?.teamName}</div>
             <button onClick={() => status(employeeId,name?.data?.notificationRequestId,"true",name?.data?.teamName) }>Accept</button>
             <button onClick={() => status(employeeId,name?.data?.notificationRequestId,"false",name?.data?.teamName) }>Decline</button>
-    
         </>
     )
 }
 
 const TeamInvitationStatus = ({name}) => {
+    console.log(name);
     return (
         <>
             <div> {name?.data?.senderName} {name?.data?.status} the team invitation</div>

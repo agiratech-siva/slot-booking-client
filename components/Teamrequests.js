@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { config } from "dotenv";
 config();
-const id = localStorage.getItem("employee-id");
 import status from "../status";
 import { Link } from "react-router-dom";
 
 const Teamrequests = () => {
     
     const [requests,setRequests] = useState([]);
-    
+    const [count, setCount] = useState(0);
+    const id = localStorage.getItem("employee-id");
     useEffect(() => {
         console.log("useEffect called");
-
         const getteamrequests = async () => {
 
             const response = await fetch(`${process.env.ENV_URL}/teams/getteamrequests/${id}`);
@@ -28,7 +27,7 @@ const Teamrequests = () => {
 
         getteamrequests()
 
-    },[])
+    },[count])
 
     if(requests.length == 0){
         return (
@@ -51,11 +50,13 @@ const Teamrequests = () => {
                             <p>teamname: {request.teamName}</p>
                             <button onClick={async () => {
                                 await status(id, request.teamNotificationId,"true", request.teamName);
-                                
+                                setCount((prev) =>  prev + 1);
+                                console.log(count);
                             }}>Accept</button>
                             <button onClick={async () => {
                                 await status(id, request.teamNotificationId,"false",request.teamName);
-                                
+                                setCount((prev) =>  prev + 1);
+                                console.log(count);
                             }}>Decline</button>
                         </div>
                     );

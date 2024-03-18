@@ -44,6 +44,7 @@ const Userinfo = () => {
                 <div>{userdetails.userdetail.mail}</div>
                 <Link to="/create-team">create team </Link>
                 <Link to="/yourteamrequests"> your team requests</Link>
+                <Link to="/slotlist">slot list</Link>
            </div>
         )
         
