@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-let member1,member2;
+let member1,member2,myteamname,opponentteamname;
 
 const Teamselection = () => {
     const navigate = useNavigate();
@@ -17,7 +17,9 @@ const Teamselection = () => {
             otherteammember,
             opponent1,
             opponent2,
-            data
+            data,
+            myteamname,
+            opponentteamname
         }
 
         navigate('/bookingpage', {state: details});
@@ -41,9 +43,9 @@ const Teamselection = () => {
        }
         
         else{
-
+            console.log(member1, typeof member1);
             const opponentTeamSelection = async () => {
-                const response = await fetch(`${process.env.ENV_URL}/teams/getOpponentTeams/${member1}/${member2}`);
+                const response = await fetch(`${process.env.ENV_URL}/teams/getOpponentTeams/${member1.employeeId}/${member2.employeeId}`);
                 const result = await response.json();
                 console.log("opponent team",result, result?.teams, typeof result?.teams);
                 setOpponentTeams(result?.teams);
@@ -89,6 +91,7 @@ const Teamselection = () => {
                         <div> team member1: {team.members[0].ObjectId.fullname}</div>
                         <div> team member2: {team.members[1].ObjectId.fullname}</div>
                         <button onClick={() => {
+                            opponentteamname = team.name;
                             const initiator = member1.employeeId == id ? member1 : member2;
                             const otherteammember = initiator.employeeId == member1.employeeId ? member2 : member1;
                             checkforslotandsendrequest(initiator,otherteammember, {employeeId: team.members[0].employeeId, name: team.members[0].ObjectId.fullname }, {employeeId: team.members[1].employeeId, name: team.members[1].ObjectId.fullname });
@@ -110,6 +113,7 @@ const Teamselection = () => {
                         <div> team member1: {team.members[0].ObjectId.fullname}</div>
                         <div> team member2: {team.members[1].ObjectId.fullname}</div>
                         <button onClick={() => {
+                            myteamname = team.name;
                             member1 = {employeeId: team.members[0].employeeId, name: team.members[0].ObjectId.fullname };
                             member2 = {employeeId: team.members[1].employeeId, name: team.members[1].ObjectId.fullname };
                             setOpponentTeamspage(true);
