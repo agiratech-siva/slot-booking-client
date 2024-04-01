@@ -6,6 +6,10 @@ import requestNotifcationPermission from "./notifications/firebase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Userinfo from "./components/Userinfo";
 import Teamrequests from "./components/Teamrequests";
+import Slotlisting from "./components/Slotlisting";
+import Teamselection from "./components/Teamselection";
+import Booking from "./components/Booking";
+import Bookingrequest from "./components/Bookingrequest";
 import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("container"));
@@ -40,6 +44,22 @@ const approutes = createBrowserRouter([
             {
                 path: "/yourteamrequests",
                 element: <Teamrequests/>
+            },
+            {
+                path: "/slotlist",
+                element: <Slotlisting/>
+            },
+            {
+                path: "/teamselection",
+                element: <Teamselection/>
+            },
+            {
+                path: "/bookingpage",
+                element: <Booking/>
+            },
+            {
+                path: "/bookingrequests",
+                element: <Bookingrequest/>
             }
         ]
         

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { config } from "dotenv";
 import { Link } from "react-router-dom";
+
 const id = localStorage.getItem("employee-id");
 config();
 
@@ -44,6 +45,8 @@ const Userinfo = () => {
                 <div>{userdetails.userdetail.mail}</div>
                 <Link to="/create-team">create team </Link>
                 <Link to="/yourteamrequests"> your team requests</Link>
+                <Link to="/slotlist">slot list</Link>
+                <Link to="/bookingrequests">booking requests</Link>
            </div>
         )
         

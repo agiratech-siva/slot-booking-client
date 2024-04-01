@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html -p 11000"
+    "start": "parcel index.html -p 10000"
   },
   "author": "siva rama krishnan",
   "license": "ISC",
@@ -14,7 +14,8 @@
     "firebase": "^10.8.1",
     "react": "^18.2.0",
     "react-router-dom": "^6.22.2",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "buffer": "^6.0.3",

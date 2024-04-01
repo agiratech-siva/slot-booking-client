@@ -18,7 +18,7 @@ const msalConfig = {
 
 
 const login = async () => {
-    console.log("login called");
+  
   const msalInstance = 
     await PublicClientApplication.createPublicClientApplication(msalConfig);
 
@@ -81,7 +81,7 @@ const login = async () => {
           })
             .then(() => {
                 
-              window.location.href = "/";
+              // window.location.href = "/";
               
               
             })

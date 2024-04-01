@@ -1,0 +1,12 @@
+.available{
+    background-color: lightgreen;
+}
+
+.pending{
+    background-color: yellow;
+}
+
+.timeslot{
+    display: flex;
+    gap: 1rem;
+}
