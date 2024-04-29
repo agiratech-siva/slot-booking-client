@@ -38,7 +38,6 @@ const Teamrequests = () => {
             
         )
     }else{
-        
         return (
             <>
                 <Link to="/">Home page</Link>

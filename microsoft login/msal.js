@@ -81,7 +81,7 @@ const login = async () => {
           })
             .then(() => {
                 
-              // window.location.href = "/";
+              window.location.href = "/";
               
               
             })
